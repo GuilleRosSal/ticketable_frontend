@@ -1,0 +1,10 @@
+@use 'sass:math';
+
+@function to-rem($px) {
+  @return math.div($px, 16px) * 1rem;
+}
+
+@function space($multiplier) {
+  $px: $multiplier * 8px;
+  @return to-rem($px);
+}
