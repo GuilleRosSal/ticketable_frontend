@@ -1,11 +1,25 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, isDevMode, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideEffects } from '@ngrx/effects';
+import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
+import { appReducers } from './app.state';
+import { AuthEffects } from './core/auth/store/effects/auth.effects';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { ToastEffects } from './core/toasts/store/effects/toast.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
-  ]
+    provideRouter(routes),
+
+    provideHttpClient(withInterceptors([authInterceptor])),
+
+    provideStore(appReducers),
+    provideEffects([AuthEffects, ToastEffects]),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+  ],
 };
