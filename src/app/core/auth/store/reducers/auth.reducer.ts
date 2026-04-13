@@ -44,7 +44,7 @@ const _authReducer = createReducer(
     loading: false,
     error: {
       code: error.status,
-      message: error.error?.message || error.message,
+      message: error.error.error,
       url: error.url,
     },
   })),
@@ -66,7 +66,7 @@ const _authReducer = createReducer(
     loading: false,
     error: {
       code: error.status,
-      message: error.error?.message || error.message,
+      message: error.error.error,
       url: error.url,
     },
   })),

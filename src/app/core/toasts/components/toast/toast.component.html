@@ -1,0 +1,8 @@
+@if (toast$ | async; as t) {
+  <div class="toast-container" [ngClass]="{ 'toast-container--visible': t.show }">
+    <div class="toast" [ngClass]="'toast--' + t.toastType">
+      <div class="toast__icon" [ngClass]="'toast__icon--' + t.toastType"></div>
+      <p class="toast__message">{{ t.message }}</p>
+    </div>
+  </div>
+}

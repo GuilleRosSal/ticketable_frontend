@@ -15,9 +15,11 @@ img {
 }
 
 body {
+  height: 100%;
   line-height: 1.5;
   font-family: variables.$font-family;
   font-size: functions.to-rem(14px);
   color: variables.$text-color;
+  background-color: variables.$secondary-color;
   cursor: default;
 }

@@ -1,0 +1,40 @@
+@use './../../../../styles/variables';
+@use './../../../../styles/functions';
+
+.footer {
+  display: flex;
+  padding: functions.space(2) functions.space(2) functions.space(4) functions.space(2);
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    gap: functions.space(2);
+    margin: auto;
+  }
+
+  &__item {
+    &:not(:last-child)::after {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      width: functions.to-rem(6px);
+      height: functions.to-rem(6px);
+      margin-left: functions.space(2);
+      background-color: variables.$text-color;
+      border-radius: 100%;
+    }
+  }
+
+  &__link {
+    color: variables.$text-color;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: functions.lighten(variables.$text-color);
+      text-decoration: underline;
+    }
+  }
+}

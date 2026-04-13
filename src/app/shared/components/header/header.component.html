@@ -1,0 +1,18 @@
+<header class="header">
+  <ul class="header__list">
+    <li class="header__item">
+      <a class="header__link" routerLink="/ticket"
+        ><img class="header__logo" src="images/Ticketable_logo.png" alt="Logo de Ticketable"
+      /></a>
+    </li>
+    <li class="header__item">
+      <a class="header__link" routerLink="/profile">
+        <div
+          class="header__icon"
+          [style.mask-image]="'url(' + (iconPath$ | async) + ')'"
+          [style.-webkit-mask-image]="'url(' + (iconPath$ | async) + ')'"
+        ></div>
+      </a>
+    </li>
+  </ul>
+</header>

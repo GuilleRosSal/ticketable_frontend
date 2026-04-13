@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
@@ -16,11 +16,9 @@ import {
 
 @Injectable()
 export class AuthEffects {
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private router: Router,
-  ) {}
+  private actions$ = inject(Actions);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   login$ = createEffect(() =>
     this.actions$.pipe(
@@ -43,8 +41,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(logout),
         tap(() => {
-          //navigate to loginForm
-          //this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/auth/login');
         }),
       ),
     { dispatch: false },
@@ -71,8 +68,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(loginSuccess, registerSuccess),
         tap(() => {
-          //navegación a home
-          //this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/ticket');
         }),
       ),
     { dispatch: false },
@@ -81,7 +77,7 @@ export class AuthEffects {
   authError$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loginError, registerError),
-      map(({ error }) => showToast({ message: error.message, toastType: 'error' })),
+      map(({ error }) => showToast({ message: error.error.error, toastType: 'error' })),
     ),
   );
 }

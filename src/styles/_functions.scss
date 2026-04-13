@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:color';
 
 @function to-rem($px) {
   @return math.div($px, 16px) * 1rem;
@@ -7,4 +8,12 @@
 @function space($multiplier) {
   $px: $multiplier * 8px;
   @return to-rem($px);
+}
+
+@function darken($color) {
+  @return color.mix(black, $color, 20%);
+}
+
+@function lighten($color) {
+  @return color.mix(white, $color, 20%);
 }

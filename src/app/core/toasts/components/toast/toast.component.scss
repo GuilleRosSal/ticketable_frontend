@@ -1,0 +1,12 @@
+@use './../../../../../styles/functions';
+
+.toast-container {
+  display: none;
+  position: fixed;
+  top: functions.space(2);
+  right: functions.space(2);
+
+  &--visible {
+    display: block;
+  }
+}
