@@ -1,0 +1,38 @@
+@use './../../../../../styles/functions';
+@use './../../../../../styles/variables';
+
+.profile {
+  display: block;
+
+  @media screen and (width >= variables.$tablet-threshold) {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: functions.space(2);
+  }
+
+  &__sidebar {
+    display: none;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      display: block;
+    }
+
+    &--is-menu {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__content {
+    display: block;
+    width: 100%;
+
+    &--is-menu {
+      display: none;
+
+      @media screen and (width >= variables.$tablet-threshold) {
+        display: none;
+      }
+    }
+  }
+}

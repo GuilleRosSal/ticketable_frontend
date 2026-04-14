@@ -1,12 +1,16 @@
 import { User } from '../../../core/auth/models/user.model';
 import { Category } from './category.model';
-import { Image } from './image.model';
 
+export enum TicketState {
+  OPEN = 'OPEN',
+  IN_PROGRESS = 'IN_PROGRESS',
+  RESOLVED = 'RESOLVED',
+}
 export interface Ticket {
   ticket_id: number;
   subject: string;
-  description?: string;
-  creation_date?: string;
+  description: string;
+  creation_date: string;
   resolution_date?: string | null;
   state: TicketState;
   resolution?: string | null;
@@ -14,18 +18,38 @@ export interface Ticket {
   // IDs of other entities
   category_id?: number;
   user_id?: number;
-
-  // Properties of other entities
-  category?: Category;
-  User?: Partial<User>;
-  clientimage?: Image[];
-  resolutionimage?: Image[];
 }
 
-export enum TicketState {
-  OPEN = 'OPEN',
-  IN_PROGRESS = 'IN_PROGRESS',
-  RESOLVED = 'RESOLVED',
+export interface TicketDetails extends Ticket {
+  // Properties of other entities
+  category: Category;
+  User: Partial<User>;
+  clientimage: string[];
+  resolutionimage: string[];
+}
+
+export interface FilteredTicket {
+  ticket_id: number;
+  subject: string;
+  state: TicketState;
+  creation_date: string;
+
+  category: Category;
+  User: Partial<User>;
+}
+
+export interface TicketCreationData {
+  subject: string;
+  description: string;
+  category: string;
+  subcategory: string;
+  images?: File[];
+}
+
+export interface TicketResolutionData {
+  state: TicketState.IN_PROGRESS | TicketState.RESOLVED;
+  resolution?: string;
+  images?: File[];
 }
 
 /*-----------------------------------------------------*\
@@ -44,11 +68,11 @@ export interface Pagination {
 }
 
 export interface TicketFilters {
-  category: string;
-  subcategory: string;
-  email: string;
-  state: TicketState;
-  creation_date: string;
+  category?: string;
+  subcategory?: string;
+  email?: string;
+  state?: TicketState;
+  creation_date?: string;
 }
 
 export interface TicketFiltersAndPagination {
@@ -61,12 +85,12 @@ export interface TicketFiltersAndPagination {
 \*-----------------------------------------------------*/
 // GET /ticket/:id
 export interface TicketDetailsResponse {
-  ticket: Ticket;
+  ticket: TicketDetails;
 }
 
 // GET /ticket
 export interface FilteredTicketsResponse {
-  tickets: Ticket[];
+  tickets: FilteredTicket[];
   paginator_data: PaginatorData | null;
 }
 
@@ -80,4 +104,8 @@ export interface TicketCreationResponse {
 export interface TicketResolutionResponse {
   ticket: Ticket;
   imageURLs: string[];
+}
+
+export interface TicketStatesResponse {
+  states: string[];
 }

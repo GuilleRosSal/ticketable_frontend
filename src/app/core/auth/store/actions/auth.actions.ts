@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { AuthUser, LoginCredentials, RegisterData } from '../../models/auth.model';
+import { ProfileData, UpdatePassword, UpdatePasswordResponse } from '../../models/user.model';
 
 export const login = createAction('[Auth] Login', props<{ credentials: LoginCredentials }>());
 
@@ -17,3 +18,33 @@ export const registerSuccess = createAction(
 );
 
 export const registerError = createAction('[Auth] Register Error', props<{ error: any }>());
+
+export const updateProfileData = createAction(
+  '[Auth] Update Profile Data',
+  props<{ user_id: number; profileData: ProfileData }>(),
+);
+
+export const updateProfileDataSuccess = createAction(
+  '[Auth] Update Profile Data Success',
+  props<{ authUser: AuthUser }>(),
+);
+
+export const updateProfileDataError = createAction(
+  '[Auth] Update Profile Data Error',
+  props<{ error: any }>(),
+);
+
+export const updatePassword = createAction(
+  '[Auth] Update Password',
+  props<{ user_id: number; updatePassword: UpdatePassword }>(),
+);
+
+export const updatePasswordSuccess = createAction(
+  '[Auth] Update Password Success',
+  props<{ response: UpdatePasswordResponse }>(),
+);
+
+export const updatePasswordError = createAction(
+  '[Auth] Update Password Error',
+  props<{ error: any }>(),
+);

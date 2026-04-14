@@ -9,6 +9,7 @@ import { routes } from './app.routes';
 import { appReducers } from './app.state';
 import { AuthEffects } from './core/auth/store/effects/auth.effects';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { hydrationMetaReducer } from './core/store/meta-reducers/hydation.reducer';
 import { ToastEffects } from './core/toasts/store/effects/toast.effects';
 
 export const appConfig: ApplicationConfig = {
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
 
     provideHttpClient(withInterceptors([authInterceptor])),
 
-    provideStore(appReducers),
+    provideStore(appReducers, { metaReducers: [hydrationMetaReducer] }),
     provideEffects([AuthEffects, ToastEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],

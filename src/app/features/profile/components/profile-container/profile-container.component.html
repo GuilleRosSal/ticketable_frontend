@@ -1,1 +1,9 @@
-<p>profile-container works!</p>
+<div class="profile">
+  <aside class="profile__sidebar" [class.profile__sidebar--is-menu]="isMenuRoute()">
+    <app-profile-menu></app-profile-menu>
+  </aside>
+
+  <section class="profile__content" [class.profile__content--is-menu]="isMenuRoute()">
+    <router-outlet></router-outlet>
+  </section>
+</div>

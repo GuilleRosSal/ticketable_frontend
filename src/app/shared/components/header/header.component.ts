@@ -17,4 +17,9 @@ export class HeaderComponent {
   iconPath$ = this.store
     .select(selectUserRole)
     .pipe(map((role) => (role === 'ADMIN' ? '/icons/user-admin.svg' : '/icons/user.svg')));
+
+  getProfileLink(): string {
+    const isMobile = window.innerWidth < 768;
+    return isMobile ? '/profile/menu' : '/profile/main';
+  }
 }

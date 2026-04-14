@@ -1,1 +1,36 @@
-<p>profile-menu works!</p>
+<div class="profile-menu">
+  <h1 class="profile-menu__title">Mi Perfil</h1>
+
+  <div class="profile-menu__info">
+    <h2 class="profile-menu__decor">{{ 'TODO USER INITIALS' }}</h2>
+    <div class="profile-menu__secondary">
+      <h2 class="profile-menu__subtitle">{{ 'TODO USER NAME AND SURNAME' }}</h2>
+      <h3 class="profile-menu__subsubtitle">{{ 'TODO USER NAME AND SURNAME' }}</h3>
+    </div>
+  </div>
+
+  <nav class="profile-menu__nav" aria-label="Menú del perfil">
+    <ul class="profile-menu__list">
+      <li class="profile-menu__item">
+        <a
+          class="profile-menu__button"
+          [class.profile-menu__button--active]="isActiveLink('/main')"
+          routerLink="/profile/main"
+        >
+          Editar datos de la cuenta
+        </a>
+      </li>
+      <li class="profile-menu__item">
+        <a
+          class="profile-menu__button"
+          [class.profile-menu__button--active]="isActiveLink('/password')"
+          routerLink="/profile/password"
+        >
+          Cambiar contraseña
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <button class="profile-menu__button" type="button" (click)="logout()">Cerrar sesión</button>
+</div>

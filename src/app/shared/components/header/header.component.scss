@@ -2,9 +2,12 @@
 @use './../../../../styles/functions';
 
 .header {
-  display: flex;
   padding: functions.space(4) functions.space(2) functions.space(2) functions.space(2);
   background-color: variables.$primary-color;
+
+  &__nav {
+    display: flex;
+  }
 
   &__list {
     display: flex;

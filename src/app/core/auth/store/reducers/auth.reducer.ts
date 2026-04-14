@@ -9,6 +9,12 @@ import {
   register,
   registerError,
   registerSuccess,
+  updatePassword,
+  updatePasswordError,
+  updatePasswordSuccess,
+  updateProfileData,
+  updateProfileDataError,
+  updateProfileDataSuccess,
 } from '../actions/auth.actions';
 
 export interface AuthState {
@@ -27,48 +33,38 @@ export const initialState: AuthState = {
 
 const _authReducer = createReducer(
   initialState,
-  on(login, (state, { credentials }) => ({
+  on(login, register, updateProfileData, updatePassword, (state) => ({
     ...state,
     loading: true,
     error: null,
   })),
-  on(loginSuccess, (state, { authUser }) => ({
+  on(loginSuccess, registerSuccess, updateProfileDataSuccess, (state, { authUser }) => ({
     ...state,
     user: authUser.user,
     token: authUser.token,
     loading: false,
     error: null,
   })),
-  on(loginError, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error: {
-      code: error.status,
-      message: error.error.error,
-      url: error.url,
-    },
-  })),
+  on(
+    loginError,
+    registerError,
+    updateProfileDataError,
+    updatePasswordError,
+    (state, { error }) => ({
+      ...state,
+      loading: false,
+      error: {
+        code: error.status,
+        message: error.error.error,
+        url: error.url,
+      },
+    }),
+  ),
   on(logout, () => initialState),
-  on(register, (state, { registerData }) => ({
-    ...state,
-    loading: true,
-    error: null,
-  })),
-  on(registerSuccess, (state, { authUser }) => ({
-    ...state,
-    user: authUser.user,
-    token: authUser.token,
-    loading: false,
-    error: null,
-  })),
-  on(registerError, (state, { error }) => ({
+  on(updatePasswordSuccess, (state, { response }) => ({
     ...state,
     loading: false,
-    error: {
-      code: error.status,
-      message: error.error.error,
-      url: error.url,
-    },
+    error: null,
   })),
 );
 
