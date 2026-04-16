@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { delay, map } from 'rxjs';
+import { delay, of, switchMap } from 'rxjs';
 import { hideToast, showToast } from '../actions/toast.actions';
 
 @Injectable()
@@ -10,8 +10,10 @@ export class ToastEffects {
   autoHideToast$ = createEffect(() =>
     this.actions$.pipe(
       ofType(showToast),
-      delay(4000),
-      map(() => hideToast()),
+      switchMap(({ toastType }) => {
+        const duration = toastType === 'error' ? 8000 : 4000;
+        return of(hideToast()).pipe(delay(duration));
+      }),
     ),
   );
 }

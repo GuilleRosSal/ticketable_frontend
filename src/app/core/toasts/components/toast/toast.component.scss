@@ -1,12 +1,99 @@
+@use './../../../../../styles/variables';
 @use './../../../../../styles/functions';
 
 .toast-container {
-  display: none;
+  display: block;
   position: fixed;
-  top: functions.space(2);
+  top: functions.space(14);
   right: functions.space(2);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform: translateX(20px);
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s,
+    transform 0.5s ease;
 
   &--visible {
-    display: block;
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+    transform: translateX(0);
+  }
+}
+
+.toast {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 92vw;
+  max-width: 400px;
+  padding: functions.space(2);
+  gap: functions.space(2);
+  background-color: variables.$secondary-color;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+  &--success {
+    border: 2px solid variables.$open-color;
+    border-left: 6px solid variables.$open-color;
+    border-radius: 16px;
+  }
+
+  &--error {
+    border: 2px solid variables.$resolved-color;
+    border-left: 6px solid variables.$resolved-color;
+    border-radius: 16px;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: functions.space(1) functions.space(4);
+    border-radius: 16px;
+
+    &::after {
+      content: '';
+      display: block;
+      width: functions.space(3);
+      height: functions.space(3);
+      background-color: variables.$secondary-color;
+
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      -webkit-mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+    }
+
+    &--success {
+      background-color: variables.$open-color;
+
+      &::after {
+        mask-image: url('/icons/status_resolved.svg');
+        -webkit-mask-image: url('/icons/status_resolved.svg');
+      }
+    }
+
+    &--error {
+      background-color: variables.$resolved-color;
+
+      &::after {
+        mask-image: url('/icons/error.svg');
+        -webkit-mask-image: url('/icons/error.svg');
+      }
+    }
+  }
+
+  &__message {
+    flex: 1;
+    word-break: break-word;
+    color: variables.$text-color;
   }
 }

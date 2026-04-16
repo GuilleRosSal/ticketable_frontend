@@ -1,12 +1,17 @@
 @use './../../../../../styles/functions';
 @use './../../../../../styles/variables';
 
+:host {
+  display: flex;
+  flex: 1;
+}
+
 .profile {
-  display: block;
+  display: flex;
+  flex: 1;
 
   @media screen and (width >= variables.$tablet-threshold) {
-    display: grid;
-    grid-template-columns: 300px 1fr;
+    flex-direction: row;
     gap: functions.space(2);
   }
 
@@ -14,17 +19,20 @@
     display: none;
 
     @media screen and (width >= variables.$tablet-threshold) {
-      display: block;
+      display: flex;
+      flex: 0 0 400px;
     }
 
     &--is-menu {
-      display: block;
-      width: 100%;
+      display: flex;
+      flex: 1;
     }
   }
 
   &__content {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     width: 100%;
 
     &--is-menu {

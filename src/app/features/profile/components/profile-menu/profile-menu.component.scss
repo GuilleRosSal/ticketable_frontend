@@ -1,2 +1,134 @@
 @use './../../../../../styles/variables';
 @use './../../../../../styles/functions';
+@use 'sass:color';
+
+:host {
+  width: 100%;
+  @media screen and (width >= variables.$tablet-threshold) {
+    display: flex;
+    flex: 1;
+  }
+}
+
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  padding: functions.space(4) functions.space(2);
+  margin-top: functions.space(4);
+  margin-bottom: functions.space(4);
+  gap: functions.space(4);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+  @media screen and (width >= variables.$tablet-threshold) {
+    background-color: color.mix(variables.$primary-color, variables.$secondary-color, 15%);
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border-right: 1px solid rgba(variables.$primary-color, 0.1);
+  }
+
+  &__title {
+    font-size: functions.to-rem(24px);
+    color: variables.$primary-color;
+    text-align: center;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(32px);
+    }
+  }
+
+  &__decor {
+    padding: functions.space(1);
+    margin: auto;
+    font-size: functions.to-rem(22px);
+    text-align: center;
+    color: variables.$secondary-color;
+    background-color: variables.$primary-color;
+    border-radius: 100%;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(24px);
+    }
+  }
+
+  &__subtitle {
+    font-size: functions.to-rem(22px);
+    color: variables.$primary-color;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(24px);
+    }
+  }
+
+  &__subsubtitle {
+    font-size: functions.to-rem(20px);
+    color: variables.$primary-color;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(22px);
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: row;
+    gap: functions.space(2);
+  }
+
+  &__secondary {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__nav {
+    margin-top: functions.space(2);
+    margin-bottom: functions.space(2);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: functions.space(6);
+    list-style: none;
+  }
+
+  &__button {
+    display: block;
+    text-decoration: none;
+    padding: functions.space(2);
+    width: 100%;
+    text-align: center;
+    color: variables.$primary-color;
+    background-color: variables.$secondary-color;
+    border: 1px solid variables.$primary-color;
+    border-radius: 16px;
+    font-size: functions.to-rem(14px);
+    cursor: pointer;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(16px);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: functions.darken(variables.$secondary-color);
+    }
+
+    &--active {
+      color: variables.$secondary-color;
+      background-color: variables.$primary-color;
+      border: none;
+
+      &:hover,
+      &:focus {
+        background-color: functions.darken(variables.$primary-color);
+      }
+    }
+  }
+}

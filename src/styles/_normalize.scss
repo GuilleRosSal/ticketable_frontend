@@ -22,4 +22,8 @@ body {
   color: variables.$text-color;
   background-color: variables.$secondary-color;
   cursor: default;
+
+  @media screen and (width >= variables.$tablet-threshold) {
+    font-size: functions.to-rem(16px);
+  }
 }

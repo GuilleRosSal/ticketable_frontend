@@ -1,6 +1,12 @@
 @use './../../../../styles/variables';
 @use './../../../../styles/functions';
 
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
 .header {
   padding: functions.space(4) functions.space(2) functions.space(2) functions.space(2);
   background-color: variables.$primary-color;

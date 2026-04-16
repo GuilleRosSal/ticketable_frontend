@@ -14,7 +14,12 @@ Form styles
 .form-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
   padding: functions.space(4) functions.space(2);
+  margin-inline: auto;
+  margin-top: functions.space(4);
+  margin-bottom: functions.space(4);
+  max-width: 700px;
   gap: functions.space(6);
   border-radius: 16px;
   box-shadow:
@@ -26,6 +31,10 @@ Form styles
     font-size: functions.to-rem(24px);
     color: variables.$primary-color;
     text-align: center;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(32px);
+    }
   }
 }
 
@@ -95,10 +104,15 @@ Form styles
     display: block;
     width: 100%;
     padding: functions.space(2);
+    font-size: functions.to-rem(14px);
     background-color: variables.$secondary-color;
     border: 1px solid variables.$primary-color;
     border-radius: 16px;
     transition: box-shadow 0.2s ease;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(16px);
+    }
 
     &:focus {
       outline: none;
@@ -118,10 +132,21 @@ Form styles
     width: 100%;
     padding: functions.space(2);
     margin-top: functions.space(2);
+    font-size: functions.to-rem(14px);
     border: none;
     border-radius: 16px;
     color: variables.$secondary-color;
     background-color: variables.$primary-color;
+    cursor: pointer;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(16px);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: functions.darken(variables.$primary-color);
+    }
   }
 
   &__error {
