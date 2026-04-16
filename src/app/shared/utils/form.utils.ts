@@ -11,4 +11,9 @@ export class FormUtils {
     const control = form.get(controlName);
     return control?.hasError(errorType) && control?.touched;
   }
+
+  static hasAnyError(form: FormGroup, controlName: string) {
+    const control = form.get(controlName);
+    return control?.invalid && control?.touched;
+  }
 }

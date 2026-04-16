@@ -46,4 +46,8 @@ export class RegisterComponent {
   hasErrors(controlName: string, errorType: string) {
     return FormUtils.hasErrors(this.registerForm, controlName, errorType);
   }
+
+  hasAnyError(controlName: string) {
+    return FormUtils.hasAnyError(this.registerForm, controlName);
+  }
 }

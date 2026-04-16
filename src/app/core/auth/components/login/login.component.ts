@@ -40,4 +40,8 @@ export class LoginComponent {
   hasErrors(controlName: string, errorType: string) {
     return FormUtils.hasErrors(this.loginForm, controlName, errorType);
   }
+
+  hasAnyError(controlName: string) {
+    return FormUtils.hasAnyError(this.loginForm, controlName);
+  }
 }

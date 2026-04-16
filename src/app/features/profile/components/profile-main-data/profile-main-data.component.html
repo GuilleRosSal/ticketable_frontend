@@ -1,1 +1,66 @@
-<p>profile-main-data works!</p>
+<div class="form-container">
+  <h1 class="form-container__title">Editar datos</h1>
+
+  <form class="form" [formGroup]="profileDataForm" (ngSubmit)="onSubmit()">
+    <div class="form__field" [class.form__field--error]="hasAnyError('name')">
+      <input
+        class="form__input"
+        id="name"
+        type="text"
+        formControlName="name"
+        maxlength="100"
+        placeholder=" "
+      />
+      <label class="form__label" for="name">Nombre</label>
+      @if (hasErrors('name', 'required')) {
+        <span class="form__error">El nombre es obligatorio</span>
+      }
+      @if (hasErrors('name', 'maxlength')) {
+        <span class="form__error">Has superado el límite de caracteres</span>
+      }
+    </div>
+
+    <div class="form__field" [class.form__field--error]="hasAnyError('surname')">
+      <input
+        class="form__input"
+        id="surname"
+        type="text"
+        formControlName="surname"
+        maxlength="255"
+        placeholder=" "
+      />
+      <label class="form__label" for="surname">Apellidos</label>
+      @if (hasErrors('surname', 'required')) {
+        <span class="form__error">Loas apellidos son obligatorios</span>
+      }
+      @if (hasErrors('surname', 'maxlength')) {
+        <span class="form__error">Has superado el límite de caracteres</span>
+      }
+    </div>
+
+    <div class="form__field" [class.form__field--error]="hasAnyError('email')">
+      <input
+        class="form__input"
+        id="email"
+        type="email"
+        formControlName="email"
+        maxlength="100"
+        placeholder=" "
+      />
+      <label class="form__label" for="email">Correo electrónico</label>
+      @if (hasErrors('email', 'required')) {
+        <span class="form__error">El correo electrónico es obligatorio</span>
+      }
+      @if (hasErrors('email', 'email')) {
+        <span class="form__error">El correo electrónico no es válido</span>
+      }
+      @if (hasErrors('email', 'maxlength')) {
+        <span class="form__error">Has superado el límite de caracteres</span>
+      }
+    </div>
+
+    <div class="form__field">
+      <button class="form__submit" type="submit">Actualizar datos</button>
+    </div>
+  </form>
+</div>

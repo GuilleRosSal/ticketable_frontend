@@ -36,5 +36,10 @@
       color: functions.lighten(variables.$text-color);
       text-decoration: underline;
     }
+
+    &:visited {
+      color: variables.$text-color;
+      text-decoration: none;
+    }
   }
 }

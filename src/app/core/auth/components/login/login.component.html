@@ -1,10 +1,17 @@
 <div class="form-container">
-  <h1 class="title">Iniciar Sesión</h1>
+  <h1 class="form-container__title">Iniciar Sesión</h1>
 
   <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form__field">
+    <div class="form__field" [class.form__field--error]="hasAnyError('email')">
+      <input
+        class="form__input"
+        id="email"
+        type="email"
+        formControlName="email"
+        maxlength="100"
+        placeholder=" "
+      />
       <label class="form__label" for="email">Correo electrónico</label>
-      <input class="form__input" id="email" type="email" formControlName="email" maxlength="100" />
       @if (hasErrors('email', 'required')) {
         <span class="form__error">El correo electrónico es obligatorio</span>
       }
@@ -16,15 +23,16 @@
       }
     </div>
 
-    <div class="form__field">
-      <label class="form__label" for="password">Contraseña</label>
+    <div class="form__field" [class.form__field--error]="hasAnyError('password')">
       <input
         class="form__input"
         id="password"
         type="password"
         formControlName="password"
         maxlength="100"
+        placeholder=" "
       />
+      <label class="form__label" for="password">Contraseña</label>
       @if (hasErrors('password', 'required')) {
         <span class="form__error">La contraseña es obligatoria</span>
       }
@@ -33,9 +41,7 @@
       }
     </div>
 
-    <div class="form__field">
-      <button class="form__submit" type="submit">Iniciar sesión</button>
-    </div>
+    <button class="form__submit" type="submit">Iniciar sesión</button>
   </form>
 
   <p class="extra-form">

@@ -36,7 +36,7 @@ export const updateProfileDataError = createAction(
 
 export const updatePassword = createAction(
   '[Auth] Update Password',
-  props<{ user_id: number; updatePassword: UpdatePassword }>(),
+  props<{ user_id: number; passwordData: UpdatePassword }>(),
 );
 
 export const updatePasswordSuccess = createAction(

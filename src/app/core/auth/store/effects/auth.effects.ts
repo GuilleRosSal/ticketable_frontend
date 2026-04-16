@@ -127,8 +127,8 @@ export class AuthEffects {
   updatePassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updatePassword),
-      exhaustMap(({ user_id, updatePassword }) =>
-        this.userService.updatePassword(user_id, updatePassword).pipe(
+      exhaustMap(({ user_id, passwordData }) =>
+        this.userService.updatePassword(user_id, passwordData).pipe(
           map((response) =>
             updatePasswordSuccess({
               response,
