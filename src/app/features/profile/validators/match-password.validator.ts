@@ -10,5 +10,19 @@ export const passwordMatchValidator: ValidatorFn = (
     return null;
   }
 
-  return password.value === confirmPassword.value ? null : { passwordMismatch: true };
+  const isMismatch = password.value !== confirmPassword.value;
+
+  if (isMismatch) {
+    const errors = { ...confirmPassword.errors, passwordMismatch: true };
+    confirmPassword.setErrors(errors);
+    return { passwordMismatch: true };
+  } else {
+    if (confirmPassword.errors) {
+      const { passwordMismatch, ...otherErrors } = confirmPassword.errors;
+      const hasErrors = Object.keys(otherErrors).length > 0;
+      confirmPassword.setErrors(hasErrors ? otherErrors : null);
+    }
+  }
+
+  return null;
 };

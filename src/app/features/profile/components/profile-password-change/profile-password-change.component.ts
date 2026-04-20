@@ -1,9 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { UpdatePassword, User } from '../../../../core/auth/models/user.model';
-import { updatePassword } from '../../../../core/auth/store/actions/auth.actions';
+import {
+  updatePassword,
+  updatePasswordSuccess,
+} from '../../../../core/auth/store/actions/auth.actions';
 import { selectUser } from '../../../../core/auth/store/selectors/auth.selector';
 import { FormUtils } from '../../../../shared/utils/form.utils';
 import { passwordMatchValidator } from '../../validators/match-password.validator';
@@ -17,6 +22,8 @@ import { passwordMatchValidator } from '../../validators/match-password.validato
 export class ProfilePasswordChangeComponent implements OnInit {
   private store = inject(Store);
   private fb = inject(FormBuilder);
+  private actions$ = inject(Actions);
+  private destroyRef = inject(DestroyRef);
 
   private user!: User;
 
@@ -40,6 +47,12 @@ export class ProfilePasswordChangeComponent implements OnInit {
           this.user = user;
         }
       });
+
+    this.actions$
+      .pipe(ofType(updatePasswordSuccess), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.passwordChangeForm.reset();
+      });
   }
 
   onSubmit() {
@@ -47,8 +60,8 @@ export class ProfilePasswordChangeComponent implements OnInit {
       if (!this.user.id) {
         return;
       }
-      const updatePassword = this.passwordChangeForm.getRawValue();
-      this.updatePassword(this.user.id, updatePassword);
+      const passwordData = this.passwordChangeForm.getRawValue();
+      this.updatePassword(this.user.id, passwordData);
     } else {
       this.passwordChangeForm.markAllAsTouched();
     }
@@ -64,12 +77,5 @@ export class ProfilePasswordChangeComponent implements OnInit {
 
   hasAnyError(controlName: string) {
     return FormUtils.hasAnyError(this.passwordChangeForm, controlName);
-  }
-
-  isPasswordMismatch() {
-    return (
-      this.passwordChangeForm.hasError('passwordMismatch') &&
-      this.passwordChangeForm.get('confirmPassword')?.touched
-    );
   }
 }

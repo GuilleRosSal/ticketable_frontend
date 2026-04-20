@@ -14,8 +14,7 @@
       <label class="form__label" for="name">Nombre</label>
       @if (hasErrors('name', 'required')) {
         <span class="form__error">El nombre es obligatorio</span>
-      }
-      @if (hasErrors('name', 'maxlength')) {
+      } @else if (hasErrors('name', 'maxlength')) {
         <span class="form__error">Has superado el límite de caracteres</span>
       }
     </div>
@@ -32,8 +31,7 @@
       <label class="form__label" for="surname">Apellidos</label>
       @if (hasErrors('surname', 'required')) {
         <span class="form__error">Loas apellidos son obligatorios</span>
-      }
-      @if (hasErrors('surname', 'maxlength')) {
+      } @else if (hasErrors('surname', 'maxlength')) {
         <span class="form__error">Has superado el límite de caracteres</span>
       }
     </div>
@@ -50,11 +48,9 @@
       <label class="form__label" for="email">Correo electrónico</label>
       @if (hasErrors('email', 'required')) {
         <span class="form__error">El correo electrónico es obligatorio</span>
-      }
-      @if (hasErrors('email', 'email')) {
+      } @else if (hasErrors('email', 'email')) {
         <span class="form__error">El correo electrónico no es válido</span>
-      }
-      @if (hasErrors('email', 'maxlength')) {
+      } @else if (hasErrors('email', 'maxlength')) {
         <span class="form__error">Has superado el límite de caracteres</span>
       }
     </div>
