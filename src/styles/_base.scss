@@ -96,7 +96,11 @@ Form styles
     color: variables.$primary-color;
     background-color: variables.$secondary-color;
     border-radius: 16px;
-    transition: all 0.2s ease;
+    transition:
+      top 0.2s ease,
+      left 0.2s ease,
+      font-weight 0.2s ease;
+
     z-index: 1;
   }
 

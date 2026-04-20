@@ -8,7 +8,15 @@ export function hydrationMetaReducer(reducer: ActionReducer<AppState>): ActionRe
       const storageValue = localStorage.getItem('__app_state__');
       if (storageValue) {
         try {
-          return JSON.parse(storageValue);
+          const persistedState = JSON.parse(storageValue);
+          const token = persistedState.auth?.token;
+
+          if (token && isTokenExpired(token)) {
+            localStorage.removeItem('__app_state__');
+            return reducer(undefined, action);
+          }
+
+          return persistedState;
         } catch {
           localStorage.removeItem('__app_state__');
         }
@@ -29,4 +37,33 @@ export function hydrationMetaReducer(reducer: ActionReducer<AppState>): ActionRe
 
     return nextState;
   };
+}
+
+function decodeBase64Url(base64Url: string): string {
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+
+  const padded = base64.padEnd(base64.length + ((4 - (base64.length % 4)) % 4), '=');
+
+  const binary = atob(padded);
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function isTokenExpired(jwt: string): boolean {
+  try {
+    const jwtParts = jwt.split('.');
+    if (jwtParts.length !== 3) {
+      return true;
+    }
+
+    const payloadJson = JSON.parse(decodeBase64Url(jwtParts[1]));
+
+    if (!payloadJson.exp) {
+      return false;
+    }
+
+    return Date.now() >= payloadJson.exp * 1000;
+  } catch {
+    return true;
+  }
 }
