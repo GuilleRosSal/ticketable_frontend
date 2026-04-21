@@ -12,6 +12,7 @@ import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { tokenErrorInterceptor } from './core/interceptors/token-error.interceptor';
 import { hydrationMetaReducer } from './core/store/meta-reducers/hydation.reducer';
 import { ToastEffects } from './core/toasts/store/effects/toast.effects';
+import { TicketEffects } from './features/tickets/store/effects/ticket.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,7 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor, tokenErrorInterceptor])),
 
     provideStore(appReducers, { metaReducers: [hydrationMetaReducer] }),
-    provideEffects([AuthEffects, ToastEffects]),
+    provideEffects([AuthEffects, ToastEffects, TicketEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };

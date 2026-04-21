@@ -1,0 +1,38 @@
+@use './../../../../../styles/functions';
+@use './../../../../../styles/variables';
+
+.ticket-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: functions.space(2);
+  align-items: start;
+  grid-template-areas:
+    'filters'
+    'list'
+    'pagination';
+
+  @media screen and (width >= variables.$tablet-threshold) {
+    grid-template-columns: 400px 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      'filters list'
+      'filters pagination';
+  }
+
+  &__filters {
+    grid-area: filters;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      position: sticky;
+      top: functions.to-rem(95px); // Height of the header for the correct sticky behaviour
+      max-height: calc(100vh - 95px);
+      overflow-y: auto;
+    }
+  }
+  &__ticket-list {
+    grid-area: list;
+  }
+  &__pagination {
+    grid-area: pagination;
+  }
+}

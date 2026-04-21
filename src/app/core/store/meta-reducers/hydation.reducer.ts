@@ -11,6 +11,7 @@ export function hydrationMetaReducer(reducer: ActionReducer<AppState>): ActionRe
           const persistedState = JSON.parse(storageValue);
           const token = persistedState.auth?.token;
 
+          // Validate token persistance and its expiration state
           if (token && isTokenExpired(token)) {
             localStorage.removeItem('__app_state__');
             return reducer(undefined, action);
