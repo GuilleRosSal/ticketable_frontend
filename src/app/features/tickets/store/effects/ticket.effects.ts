@@ -3,12 +3,15 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { UserRole } from '../../../../core/auth/models/user.model';
+import { selectUser } from '../../../../core/auth/store/selectors/auth.selector';
 import { showToast } from '../../../../core/toasts/store/actions/toast.actions';
 import { Pagination, TicketFilters, TicketFiltersAndPagination } from '../../models/ticket.model';
 import { TicketService } from '../../services/ticket.service';
 import {
   filterTickets,
   initTicketList,
+  loadTickets,
   loadTicketsError,
   loadTicketsSuccess,
   openTicket,
@@ -25,11 +28,11 @@ export class TicketEffects {
   private ticketService = inject(TicketService);
   private router = inject(Router);
 
-  loadTickets$ = createEffect(() =>
+  centraliseTicketLoading$ = createEffect(() =>
     this.actions$.pipe(
       ofType(initTicketList, filterTickets, paginationTickets),
-      withLatestFrom(this.store.select(selectFilters)),
-      switchMap(([action, storedFilters]) => {
+      withLatestFrom(this.store.select(selectFilters), this.store.select(selectUser)),
+      switchMap(([action, storedFilters, currentUser]) => {
         let filters: TicketFilters;
         let pagination: Pagination;
 
@@ -44,6 +47,23 @@ export class TicketEffects {
           pagination = action.pagination;
         }
 
+        // Ensure that if the user is a CLIENT they can only see their own tickets
+        if (currentUser?.role === UserRole.CLIENT) {
+          filters = {
+            ...filters,
+            email: currentUser.email,
+          };
+        }
+
+        return of(loadTickets({ filters, pagination }));
+      }),
+    ),
+  );
+
+  loadTicket$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadTickets),
+      switchMap(({ filters, pagination }) => {
         const filtersAndPagination: TicketFiltersAndPagination = {
           filters: filters,
           pagination: pagination,

@@ -22,6 +22,11 @@ export const paginationTickets = createAction(
   props<{ pagination: Pagination }>(),
 );
 
+export const loadTickets = createAction(
+  '[Tickets] Load Tickets',
+  props<{ filters: TicketFilters; pagination: Pagination }>(),
+);
+
 export const loadTicketsSuccess = createAction(
   '[Tickets] Load Tickets Success',
   props<{ filteredTicketsResponse: FilteredTicketsResponse }>(),

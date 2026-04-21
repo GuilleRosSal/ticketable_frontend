@@ -7,14 +7,12 @@ import {
   TicketFilters,
 } from '../../models/ticket.model';
 import {
-  filterTickets,
-  initTicketList,
+  loadTickets,
   loadTicketsError,
   loadTicketsSuccess,
   openTicket,
   openTicketError,
   openTicketSuccess,
-  paginationTickets,
 } from '../actions/ticket.actions';
 
 export interface TicketState {
@@ -37,27 +35,9 @@ export const initialState: TicketState = {
 
 const _ticketReducer = createReducer(
   initialState,
-  on(initTicketList, (state, { limit }) => ({
-    ...state,
-    pagination: {
-      ...state.pagination,
-      limit,
-    },
-    loading: true,
-    error: null,
-  })),
-  on(filterTickets, (state, { filters, limit }) => ({
+  on(loadTickets, (state, { filters, pagination }) => ({
     ...state,
     filters: filters,
-    pagination: {
-      ...state.pagination,
-      limit,
-    },
-    loading: true,
-    error: null,
-  })),
-  on(paginationTickets, (state, { pagination }) => ({
-    ...state,
     pagination: pagination,
     loading: true,
     error: null,
