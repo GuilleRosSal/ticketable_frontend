@@ -29,7 +29,7 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const registerData = {
+      const registerData: RegisterData = {
         ...this.registerForm.getRawValue(),
         role: UserRole.CLIENT,
       };

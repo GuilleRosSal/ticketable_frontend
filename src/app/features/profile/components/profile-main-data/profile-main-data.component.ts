@@ -49,7 +49,7 @@ export class ProfileMainDataComponent implements OnInit {
       if (!this.user.id) {
         return;
       }
-      const profileData = this.profileDataForm.getRawValue();
+      const profileData: ProfileData = this.profileDataForm.getRawValue();
       this.updateProfileData(this.user.id, profileData);
     } else {
       this.profileDataForm.markAllAsTouched();

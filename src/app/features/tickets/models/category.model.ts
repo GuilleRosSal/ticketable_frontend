@@ -4,9 +4,9 @@ export interface Category {
 }
 
 export interface CategoryListResponse {
-  category: string[];
+  categories: string[];
 }
 
 export interface SubcategoryListResponse {
-  subcategory: string[];
+  subcategories: string[];
 }

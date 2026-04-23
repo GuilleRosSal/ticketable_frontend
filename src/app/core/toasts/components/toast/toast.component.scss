@@ -38,14 +38,14 @@
     0 2px 4px -1px rgba(0, 0, 0, 0.2);
 
   &--success {
-    border: 2px solid variables.$open-color;
-    border-left: 6px solid variables.$open-color;
+    border: 2px solid variables.$success-color;
+    border-left: 6px solid variables.$success-color;
     border-radius: 16px;
   }
 
   &--error {
-    border: 2px solid variables.$resolved-color;
-    border-left: 6px solid variables.$resolved-color;
+    border: 2px solid variables.$error-color;
+    border-left: 6px solid variables.$error-color;
     border-radius: 16px;
   }
 
@@ -73,7 +73,7 @@
     }
 
     &--success {
-      background-color: variables.$open-color;
+      background-color: variables.$success-color;
 
       &::after {
         mask-image: url('/icons/status_resolved.svg');
@@ -82,7 +82,7 @@
     }
 
     &--error {
-      background-color: variables.$resolved-color;
+      background-color: variables.$error-color;
 
       &::after {
         mask-image: url('/icons/error.svg');

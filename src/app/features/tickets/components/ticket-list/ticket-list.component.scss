@@ -1,0 +1,8 @@
+@use './../../../../../styles/functions';
+
+.ticket-list {
+  display: flex;
+  flex-direction: column;
+  gap: functions.space(4);
+  padding: functions.space(4) 0;
+}

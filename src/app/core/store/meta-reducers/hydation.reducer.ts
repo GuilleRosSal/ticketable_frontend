@@ -31,6 +31,7 @@ export function hydrationMetaReducer(reducer: ActionReducer<AppState>): ActionRe
     if (nextState !== undefined && nextState !== null) {
       const stateToPersist: Partial<AppState> = {
         auth: nextState.auth,
+        ticket: nextState.ticket,
       };
 
       localStorage.setItem('__app_state__', JSON.stringify(stateToPersist));

@@ -1,1 +1,16 @@
-<p>ticket works!</p>
+<div class="ticket">
+  <div class="ticket__main-data">
+    <div class="ticket__details">
+      <h2 class="ticket__subject">{{ ticket.subject }}</h2>
+      <div class="ticket__state"></div>
+    </div>
+    <p class="ticket__category">{{ ticket.category.category }}</p>
+  </div>
+  <div class="ticket__secondary-data">
+    <p class="ticket__id">ID: {{ ticket.ticket_id }}</p>
+    <div class="ticket__last">
+      <p class="ticket__user">{{ ticket.User.email }}</p>
+      <p class="ticket__creation_date">{{ ticket.creation_date | date: 'dd/MM/yyyy' }}</p>
+    </div>
+  </div>
+</div>

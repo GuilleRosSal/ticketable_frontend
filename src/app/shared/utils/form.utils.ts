@@ -5,6 +5,7 @@ export class FormUtils {
     SHORT: 100,
     STANDARD: 255,
     LONG: 2000,
+    MAX_IMAGES: 3,
   };
 
   static hasErrors(form: FormGroup, controlName: string, errorType: string) {
@@ -15,5 +16,11 @@ export class FormUtils {
   static hasAnyError(form: FormGroup, controlName: string) {
     const control = form.get(controlName);
     return control?.invalid && control?.touched;
+  }
+
+  static isSelectEmpty(form: FormGroup, controlName: string) {
+    const control = form.get(controlName);
+    const value = control?.value;
+    return value?.trim() === '';
   }
 }

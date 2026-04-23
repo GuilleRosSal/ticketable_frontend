@@ -60,7 +60,7 @@ export class ProfilePasswordChangeComponent implements OnInit {
       if (!this.user.id) {
         return;
       }
-      const passwordData = this.passwordChangeForm.getRawValue();
+      const passwordData: UpdatePassword = this.passwordChangeForm.getRawValue();
       this.updatePassword(this.user.id, passwordData);
     } else {
       this.passwordChangeForm.markAllAsTouched();
