@@ -30,23 +30,15 @@
   }
 
   &__icon {
-    display: inline-block;
+    display: block;
     width: functions.to-rem(40px);
     height: functions.to-rem(40px);
-    background-color: variables.$secondary-color;
-    transition: background-color 0.2s ease-in;
-
-    // Mask settings
-    mask-repeat: no-repeat;
-    mask-size: contain;
-    mask-position: center;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: contain;
-    -webkit-mask-position: center;
+    fill: variables.$secondary-color;
+    transition: fill 0.2s ease-in;
 
     &:hover,
     &:focus {
-      background-color: functions.darken(variables.$secondary-color);
+      fill: functions.darken(variables.$secondary-color);
     }
   }
 }

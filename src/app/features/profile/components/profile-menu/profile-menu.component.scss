@@ -43,15 +43,22 @@
   }
 
   &__decor {
-    padding: functions.space(1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: functions.to-rem(50px);
+    min-height: functions.to-rem(50px);
     margin: auto;
-    font-size: functions.to-rem(22px);
-    text-align: center;
+    flex-shrink: 0;
+    border-radius: 100%;
     color: variables.$secondary-color;
     background-color: variables.$primary-color;
-    border-radius: 100%;
+    font-size: functions.to-rem(22px);
+    font-weight: bold;
 
     @media screen and (width >= variables.$tablet-threshold) {
+      min-width: functions.to-rem(60px);
+      min-height: functions.to-rem(60px);
       font-size: functions.to-rem(24px);
     }
   }

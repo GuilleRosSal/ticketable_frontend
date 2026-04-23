@@ -49,46 +49,26 @@
     border-radius: 16px;
   }
 
-  &__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &__icon-container {
+    display: block;
     flex-shrink: 0;
     padding: functions.space(1) functions.space(4);
     border-radius: 16px;
 
-    &::after {
-      content: '';
-      display: block;
-      width: functions.space(3);
-      height: functions.space(3);
-      background-color: variables.$secondary-color;
-
-      mask-size: contain;
-      mask-repeat: no-repeat;
-      mask-position: center;
-      -webkit-mask-size: contain;
-      -webkit-mask-repeat: no-repeat;
-      -webkit-mask-position: center;
-    }
-
     &--success {
       background-color: variables.$success-color;
-
-      &::after {
-        mask-image: url('/icons/status_resolved.svg');
-        -webkit-mask-image: url('/icons/status_resolved.svg');
-      }
     }
 
     &--error {
       background-color: variables.$error-color;
-
-      &::after {
-        mask-image: url('/icons/error.svg');
-        -webkit-mask-image: url('/icons/error.svg');
-      }
     }
+  }
+
+  &__icon {
+    display: block;
+    width: functions.to-rem(30px);
+    height: functions.to-rem(30px);
+    fill: variables.$secondary-color;
   }
 
   &__message {

@@ -2,7 +2,6 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
 import { selectUserRole } from '../../../core/auth/store/selectors/auth.selector';
 
 @Component({
@@ -14,9 +13,7 @@ import { selectUserRole } from '../../../core/auth/store/selectors/auth.selector
 export class HeaderComponent {
   private store = inject(Store);
 
-  iconPath$ = this.store
-    .select(selectUserRole)
-    .pipe(map((role) => (role === 'ADMIN' ? '/icons/user-admin.svg' : '/icons/user.svg')));
+  userRole$ = this.store.select(selectUserRole);
 
   getProfileLink(): string {
     const isMobile = window.innerWidth < 768;

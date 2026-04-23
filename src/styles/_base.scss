@@ -263,6 +263,7 @@ Carousel styles
   height: 110px;
   gap: functions.space(2);
   margin-top: functions.space(1);
+  justify-content: center;
   overflow-x: auto;
 
   @media screen and (width >= variables.$tablet-threshold) {
@@ -292,6 +293,8 @@ Carousel styles
 
   &__preview-remove {
     position: absolute;
+    width: functions.to-rem(32px);
+    height: functions.to-rem(32px);
     top: functions.to-rem(2px);
     right: functions.to-rem(2px);
     padding: functions.space(1);
