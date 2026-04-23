@@ -1,3 +1,4 @@
+@use './../../../../../styles/variables';
 @use './../../../../../styles/functions';
 
 .ticket-list {
@@ -5,4 +6,45 @@
   flex-direction: column;
   gap: functions.space(4);
   padding: functions.space(4) 0;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: functions.space(2);
+  }
+}
+
+.open-ticket {
+  &--phone {
+    display: block;
+    position: fixed;
+    right: functions.space(4);
+    bottom: functions.space(4);
+    padding: functions.space(1);
+    border-radius: 100%;
+    background-color: variables.$secondary-color;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.2s ease;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: functions.darken(variables.$secondary-color);
+    }
+
+    @media screen and (width >= variables.$desktop-threshold) {
+      display: none;
+    }
+  }
+
+  &__icon {
+    display: block;
+    width: functions.to-rem(40px);
+    height: functions.to-rem(40px);
+    fill: variables.$primary-color;
+  }
+
+  &--hidden {
+    display: none;
+  }
 }
