@@ -9,4 +9,6 @@ import { TicketPaginationComponent } from '../ticket-pagination/ticket-paginatio
   templateUrl: './ticket-container.component.html',
   styleUrl: './ticket-container.component.scss',
 })
-export class TicketContainerComponent {}
+export class TicketContainerComponent {
+  showFilters: boolean = false;
+}

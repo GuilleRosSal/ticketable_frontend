@@ -7,11 +7,10 @@
   gap: functions.space(2);
   align-items: start;
   grid-template-areas:
-    'filters'
     'list'
     'pagination';
 
-  @media screen and (width >= variables.$tablet-threshold) {
+  @media screen and (width >= variables.$desktop-threshold) {
     grid-template-columns: 400px 1fr;
     grid-template-rows: 1fr auto;
     grid-template-areas:
@@ -21,12 +20,20 @@
 
   &__filters {
     grid-area: filters;
+    display: none;
 
-    @media screen and (width >= variables.$tablet-threshold) {
+    @media screen and (width >= variables.$desktop-threshold) {
+      display: block;
       position: sticky;
       top: functions.to-rem(95px); // Height of the header for the correct sticky behaviour
       max-height: calc(100vh - 95px);
       overflow-y: auto;
+    }
+
+    &--show {
+      @media screen and (width >= variables.$desktop-threshold) {
+        display: block;
+      }
     }
   }
   &__ticket-list {

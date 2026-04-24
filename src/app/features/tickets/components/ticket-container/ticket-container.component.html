@@ -1,7 +1,10 @@
 <div class="ticket-container">
-  <aside class="ticket-container__filters">
-    <app-ticket-filters></app-ticket-filters>
+  <aside class="ticket-container__filters" [class.ticket-container__filters--show]="showFilters">
+    <app-ticket-filters (onClose)="showFilters = false"></app-ticket-filters>
   </aside>
-  <app-ticket-list class="ticket-container__ticket-list"></app-ticket-list>
+  <app-ticket-list
+    class="ticket-container__ticket-list"
+    (onOpenFilters)="showFilters = true"
+  ></app-ticket-list>
   <app-ticket-pagination class="ticket-container__pagination"></app-ticket-pagination>
 </div>

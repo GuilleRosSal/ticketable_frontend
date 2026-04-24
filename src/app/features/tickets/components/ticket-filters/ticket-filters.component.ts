@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-ticket-filters',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './ticket-filters.component.scss',
 })
 export class TicketFiltersComponent {
+  @Output() onClose = new EventEmitter<void>();
 
+  hideFilters() {
+    this.onClose.emit();
+  }
 }

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -18,6 +18,8 @@ import { TicketComponent } from '../ticket/ticket.component';
 export class TicketListComponent implements OnInit {
   private store = inject(Store);
   private destroyRef = inject(DestroyRef);
+
+  @Output() onOpenFilters = new EventEmitter<void>();
 
   tickets$ = this.store.select(selectTickets);
   userRole$ = this.store.select(selectUserRole);
@@ -44,5 +46,9 @@ export class TicketListComponent implements OnInit {
     if (vw < 768) return 8;
     if (vw > 1024) return 14;
     return 12;
+  }
+
+  showFilters() {
+    this.onOpenFilters.emit();
   }
 }

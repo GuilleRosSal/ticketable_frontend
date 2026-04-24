@@ -7,6 +7,29 @@
   gap: functions.space(4);
   padding: functions.space(4) 0;
 
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    color: variables.$primary-color;
+    font-size: functions.to-rem(24px);
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(32px);
+    }
+
+    &--admin {
+      @media screen and (width >= variables.$desktop-threshold) {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+
   &__list {
     display: flex;
     flex-direction: column;
@@ -14,7 +37,65 @@
   }
 }
 
+.filter-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: functions.space(1) functions.space(2);
+  gap: functions.space(1);
+  border-radius: 16px;
+  color: variables.$secondary-color;
+  background-color: variables.$primary-color;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+
+  @media screen and (width >= variables.$desktop-threshold) {
+    display: none;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: functions.darken(variables.$primary-color);
+  }
+
+  &__text {
+    font-size: functions.to-rem(14px);
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(16px);
+    }
+  }
+
+  &__icon {
+    width: functions.to-rem(20px);
+    height: functions.to-rem(20px);
+    fill: variables.$secondary-color;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+    }
+  }
+}
+
 .open-ticket {
+  &--desktop {
+    display: none;
+    padding: functions.space(1) functions.space(2);
+    border-radius: 16px;
+    color: variables.$secondary-color;
+    background-color: variables.$primary-color;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+
+    @media screen and (width >= variables.$desktop-threshold) {
+      display: inline-block;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: functions.darken(variables.$primary-color);
+    }
+  }
+
   &--phone {
     display: block;
     position: fixed;
