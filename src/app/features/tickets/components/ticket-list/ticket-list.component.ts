@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged, fromEvent, map, startWith } from 'rxjs';
 import { selectUserRole } from '../../../../core/auth/store/selectors/auth.selector';
+import { obtainTicketsPerPage } from '../../../../shared/utils/window.utils';
 import { initTicketList } from '../../store/actions/ticket.actions';
 import { selectTickets } from '../../store/selectors/ticket.selector';
 import { TicketComponent } from '../ticket/ticket.component';
@@ -28,9 +29,9 @@ export class TicketListComponent implements OnInit {
     fromEvent(window, 'resize')
       .pipe(
         debounceTime(300),
-        map(() => this.obtainTicketsPerPage()),
+        map(() => this.ticketsPerPage()),
         distinctUntilChanged(),
-        startWith(this.obtainTicketsPerPage()),
+        startWith(this.ticketsPerPage()),
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((limit) => this.loadTickets(limit));
@@ -40,12 +41,8 @@ export class TicketListComponent implements OnInit {
     this.store.dispatch(initTicketList({ limit }));
   }
 
-  obtainTicketsPerPage(): number {
-    const vw = window.innerWidth;
-
-    if (vw < 768) return 8;
-    if (vw > 1024) return 14;
-    return 12;
+  ticketsPerPage(): number {
+    return obtainTicketsPerPage();
   }
 
   showFilters() {

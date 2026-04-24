@@ -1,1 +1,25 @@
-<p>ticket-pagination works!</p>
+@if (totalPages > 1) {
+  <nav class="pagination" aria-label="Menú de paginación">
+    <button class="pagination__button" [disabled]="currentPage === 1" (click)="goToPage(1)">
+      &#171;
+    </button>
+
+    @for (page of visiblePages; track page) {
+      <button
+        class="pagination__button"
+        [class.pagination__button--active]="page === currentPage"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+    }
+
+    <button
+      class="pagination__button"
+      [disabled]="currentPage === totalPages"
+      (click)="goToPage(totalPages)"
+    >
+      &#187;
+    </button>
+  </nav>
+}

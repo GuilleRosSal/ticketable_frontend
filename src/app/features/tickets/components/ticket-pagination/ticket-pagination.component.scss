@@ -1,0 +1,39 @@
+@use './../../../../../styles/variables';
+@use './../../../../../styles/functions';
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: functions.space(1);
+
+  &__button {
+    padding: functions.space(2);
+    color: variables.$primary-color;
+    background-color: variables.$secondary-color;
+    border: 1px solid variables.$primary-color;
+    border-radius: 16px;
+    font-size: functions.to-rem(14px);
+    transition: background-color 0.2s ease;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(16px);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: functions.darken(variables.$secondary-color);
+    }
+
+    &--active {
+      color: variables.$secondary-color;
+      background-color: variables.$primary-color;
+      border: none;
+
+      &:hover,
+      &:focus {
+        background-color: functions.darken(variables.$primary-color);
+      }
+    }
+  }
+}
