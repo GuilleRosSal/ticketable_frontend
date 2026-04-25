@@ -4,7 +4,7 @@
   <form class="form" [formGroup]="profileDataForm" (ngSubmit)="onSubmit()">
     <div class="form__field" [class.form__field--error]="hasAnyError('name')">
       <input
-        class="form__input"
+        class="form__input form__input--text"
         id="name"
         type="text"
         formControlName="name"
@@ -21,7 +21,7 @@
 
     <div class="form__field" [class.form__field--error]="hasAnyError('surname')">
       <input
-        class="form__input"
+        class="form__input form__input--text"
         id="surname"
         type="text"
         formControlName="surname"
@@ -38,7 +38,7 @@
 
     <div class="form__field" [class.form__field--error]="hasAnyError('email')">
       <input
-        class="form__input"
+        class="form__input form__input--text"
         id="email"
         type="email"
         formControlName="email"

@@ -18,7 +18,7 @@ export class FormUtils {
     return control?.invalid && control?.touched;
   }
 
-  static isSelectEmpty(form: FormGroup, controlName: string) {
+  static isFieldEmpty(form: FormGroup, controlName: string) {
     const control = form.get(controlName);
     const value = control?.value;
     return value?.trim() === '';

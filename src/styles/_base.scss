@@ -21,6 +21,7 @@ Form styles
   margin-bottom: functions.space(4);
   max-width: 700px;
   gap: functions.space(6);
+  background-color: variables.$secondary-color;
   border-radius: 16px;
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.2),
@@ -42,10 +43,6 @@ Form styles
   display: flex;
   flex-direction: column;
   gap: functions.space(4);
-
-  &__initial-option {
-    color: green;
-  }
 
   &__field {
     position: relative;
@@ -175,6 +172,12 @@ Form styles
       }
     }
 
+    &__option {
+      color: variables.$text-color;
+      background-color: variables.$secondary-color;
+      font-family: variables.$font-family;
+    }
+
     &:focus {
       outline: none;
       border: 2px solid variables.$primary-color;
@@ -182,8 +185,9 @@ Form styles
     }
 
     &:focus + .form__label,
-    &:not(select):not(:placeholder-shown) + .form__label,
-    &--select:not(.form__input--empty) + .form__label {
+    &--text:not(:placeholder-shown) + .form__label,
+    &--select:not(.form__input--empty) + .form__label,
+    &--date:not(.form__input--empty) + .form__label {
       top: functions.to-rem(-24px);
       left: 0px;
       font-weight: bold;
@@ -209,6 +213,28 @@ Form styles
     &:hover,
     &:focus {
       background-color: functions.darken(variables.$primary-color);
+    }
+  }
+
+  &__reset {
+    width: 100%;
+    padding: functions.space(2);
+    margin-top: functions.space(2);
+    font-size: functions.to-rem(14px);
+    border: 1px solid variables.$primary-color;
+    border-radius: 16px;
+    color: variables.$primary-color;
+    background-color: variables.$secondary-color;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      font-size: functions.to-rem(16px);
+    }
+
+    &:hover,
+    &:focus {
+      background-color: functions.darken(variables.$secondary-color);
     }
   }
 

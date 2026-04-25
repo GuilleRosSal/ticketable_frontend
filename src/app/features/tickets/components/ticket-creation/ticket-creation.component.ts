@@ -1,5 +1,14 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -20,6 +29,7 @@ import { TicketService } from '../../services/ticket.service';
 })
 export class TicketCreationComponent implements OnInit, OnDestroy {
   private store = inject(Store);
+  private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private ticketService = inject(TicketService);
@@ -56,32 +66,10 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
     });
     this.lightbox.init();
 
-    this.openTicketForm.get('category')?.valueChanges.subscribe((categoryName) => {
-      const control = this.openTicketForm.get('subcategory');
-
-      control?.setValue('');
-
-      if (categoryName) {
-        this.categoryService.getSubcategoriesByCategory(categoryName).subscribe({
-          next: (response) => {
-            this.subcategoriesSubject.next(response.subcategories);
-            if (response.subcategories.length > 0) {
-              control?.enable();
-            } else {
-              control?.disable();
-            }
-          },
-          error: (error) => {
-            this.subcategoriesSubject.next([]);
-            control?.disable();
-            this.showErrorMessage(error.error.error);
-          },
-        });
-      } else {
-        this.subcategoriesSubject.next([]);
-        control?.disable();
-      }
-    });
+    this.openTicketForm
+      .get('category')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((category) => this.updateSubcategoryValues(category));
   }
 
   ngOnDestroy(): void {
@@ -94,6 +82,33 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
       this.openTicket(ticketData);
     } else {
       this.openTicketForm.markAllAsTouched();
+    }
+  }
+
+  updateSubcategoryValues(category: string) {
+    const control = this.openTicketForm.get('subcategory');
+
+    control?.setValue('');
+
+    if (category) {
+      this.categoryService.getSubcategoriesByCategory(category).subscribe({
+        next: (response) => {
+          this.subcategoriesSubject.next(response.subcategories);
+          if (response.subcategories.length > 0) {
+            control?.enable();
+          } else {
+            control?.disable();
+          }
+        },
+        error: (error) => {
+          this.subcategoriesSubject.next([]);
+          control?.disable();
+          this.showErrorMessage(error.error.error);
+        },
+      });
+    } else {
+      this.subcategoriesSubject.next([]);
+      control?.disable();
     }
   }
 
@@ -178,7 +193,7 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
     return FormUtils.hasAnyError(this.openTicketForm, controlName);
   }
 
-  isSelectEmpty(controlName: string) {
-    return FormUtils.isSelectEmpty(this.openTicketForm, controlName);
+  isFieldEmpty(controlName: string) {
+    return FormUtils.isFieldEmpty(this.openTicketForm, controlName);
   }
 }

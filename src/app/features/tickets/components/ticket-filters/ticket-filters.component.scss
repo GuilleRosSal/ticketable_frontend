@@ -1,0 +1,40 @@
+@use './../../../../../styles/variables';
+@use './../../../../../styles/functions';
+
+.form-container {
+  @media screen and (width >= variables.$desktop-threshold) {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid variables.$primary-color;
+    box-shadow: none;
+  }
+}
+
+.form {
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (width >= variables.$desktop-threshold) {
+      justify-content: center;
+    }
+  }
+
+  &__icon--exit {
+    width: functions.to-rem(25px);
+    height: functions.to-rem(25px);
+    fill: variables.$primary-color;
+
+    @media screen and (width >= variables.$tablet-threshold) {
+      width: functions.to-rem(30px);
+      height: functions.to-rem(30px);
+    }
+
+    @media screen and (width >= variables.$desktop-threshold) {
+      display: none;
+    }
+  }
+}

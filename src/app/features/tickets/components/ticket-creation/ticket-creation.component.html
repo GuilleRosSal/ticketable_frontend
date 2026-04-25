@@ -5,15 +5,15 @@
     <div class="form__field" [class.form__field--error]="hasAnyError('category')">
       <select
         class="form__input form__input--select"
-        [class.form__input--empty]="isSelectEmpty('category')"
+        [class.form__input--empty]="isFieldEmpty('category')"
         id="category"
         formControlName="category"
       >
-        <option class="form__initial-option" value="" disabled hidden selected>
+        <option class="form__option" value="" disabled hidden selected>
           Selecciona una categoría
         </option>
         @for (category of categories$ | async; track $index) {
-          <option [value]="category">{{ category }}</option>
+          <option class="form__option" [value]="category">{{ category }}</option>
         }
       </select>
       <label class="form__label" for="category">Categoría</label>
@@ -27,11 +27,11 @@
     <div class="form__field" [class.form__field--error]="hasAnyError('subcategory')">
       <select
         class="form__input form__input--select"
-        [class.form__input--empty]="isSelectEmpty('category')"
+        [class.form__input--empty]="isFieldEmpty('subcategory')"
         id="subcategory"
         formControlName="subcategory"
       >
-        <option class="form__initial-option" value="" disabled hidden selected>
+        <option class="form__option" value="" disabled hidden selected>
           {{
             (subcategories$ | async)?.length
               ? 'Selecciona una subcategoría'
@@ -39,7 +39,7 @@
           }}
         </option>
         @for (subcategory of subcategories$ | async; track $index) {
-          <option [value]="subcategory">{{ subcategory }}</option>
+          <option class="form__option" [value]="subcategory">{{ subcategory }}</option>
         }
       </select>
       <label class="form__label" for="subcategory">Subcategoría</label>
@@ -52,7 +52,7 @@
 
     <div class="form__field" [class.form__field--error]="hasAnyError('subject')">
       <input
-        class="form__input"
+        class="form__input form__input--text"
         id="subject"
         type="text"
         formControlName="subject"
@@ -69,7 +69,7 @@
 
     <div class="form__field" [class.form__field--error]="hasAnyError('description')">
       <textarea
-        class="form__input form__input--textarea"
+        class="form__input form__input--text form__input--textarea"
         id="description"
         rows="5"
         formControlName="description"

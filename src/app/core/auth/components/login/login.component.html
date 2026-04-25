@@ -4,7 +4,7 @@
   <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form__field" [class.form__field--error]="hasAnyError('email')">
       <input
-        class="form__input"
+        class="form__input form__input--text"
         id="email"
         type="email"
         formControlName="email"
@@ -23,7 +23,7 @@
 
     <div class="form__field" [class.form__field--error]="hasAnyError('password')">
       <input
-        class="form__input"
+        class="form__input form__input--text"
         id="password"
         type="password"
         formControlName="password"
