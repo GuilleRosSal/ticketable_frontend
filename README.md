@@ -1,59 +1,66 @@
-# TicketableFrontend
+# Sistema de Gestión de Incidencias - Guía de Despliegue (Frontend)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.5.
+Este documento contiene las instrucciones necesarias para configurar y ejecutar la interfaz de usuario del sistema desarrollada con **Angular**.
 
-## Development server
+## 1. Requisitos Previos
 
-To start a local development server, run:
+Antes de comenzar, asegúrate de tener instalado:
 
-```bash
-ng serve
-```
+- **Node.js** (v24.0.0 o superior)
+- **Backend en ejecución:** Es necesario que el servidor de la API esté operativo para que el frontend pueda cargar y gestionar los datos.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 2. Configuración del Proyecto (Angular)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+El cliente web requiere la instalación de sus dependencias y la verificación de la conexión con la API.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. **Instalación de dependencias:**
+   Desde la raíz de la carpeta del frontend, ejecuta:
 
 ```bash
-ng generate --help
+  npm install
 ```
 
-## Building
+2. **Configuración de la URL de la API:**
+   El proyecto viene preconfigurado para conectar con la API en la dirección por defecto del backend (`http://localhost:3000`).
 
-To build the project run:
+   Si tu servidor backend está ejecutándose en un puerto o dirección diferente, debes modificar la propiedad `apiUrl` en el siguiente archivo:
+   - `src/environments/environment.development.ts`
+
+   > [!NOTE]
+   > Al estar este archivo incluido en el repositorio, la aplicación funcionará directamente siempre que el backend utilice el puerto `3000`.
+
+---
+
+## 3. Puesta en marcha del Frontend
+
+Una vez instaladas las dependencias, dispones de varios comandos para ejecutar o compilar la aplicación:
+
+### Ejecución en modo desarrollo
+
+Para arrancar el servidor de desarrollo y que la aplicación se abra automáticamente en tu navegador predefinido, ejecuta:
 
 ```bash
-ng build
+ng serve --open
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+O en su defecto:
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
+La aplicación estará disponible en `http://localhost:4200`. El servidor detectará cualquier cambio en el código y refrescará la página automáticamente.
 
-For end-to-end (e2e) testing, run:
+---
+
+## 4. Compilación para Producción
+
+En caso de querer generar la build del proyecto, ejecuta el comando:
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Los archivos resultantes se generarán en la carpeta `dist/ticketable-frontend`.
