@@ -28,8 +28,8 @@ El cliente web requiere la instalación de sus dependencias y la verificación d
    Si tu servidor backend está ejecutándose en un puerto o dirección diferente, debes modificar la propiedad `apiUrl` en el siguiente archivo:
    - `src/environments/environment.development.ts`
 
-   > [!NOTE]
-   > Al estar este archivo incluido en el repositorio, la aplicación funcionará directamente siempre que el backend utilice el puerto `3000`.
+> [!NOTE]
+> Al estar este archivo incluido en el repositorio, la aplicación funcionará directamente siempre que el backend utilice el puerto `3000`.
 
 ---
 
