@@ -1,5 +1,5 @@
 import { ApplicationConfig, isDevMode, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
@@ -17,7 +17,7 @@ import { TicketEffects } from './features/tickets/store/effects/ticket.effects';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
 
     provideHttpClient(withInterceptors([authInterceptor, tokenErrorInterceptor])),
 

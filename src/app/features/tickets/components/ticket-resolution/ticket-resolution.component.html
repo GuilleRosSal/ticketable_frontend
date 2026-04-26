@@ -1,1 +1,102 @@
-<p>ticket-resolution works!</p>
+<div class="form-container">
+  <h1 class="form-container__title">Resolución</h1>
+
+  <form class="form" [formGroup]="resolutionForm" (ngSubmit)="onSubmit()">
+    <div class="form__field" [class.form__field--error]="hasAnyError('state')">
+      <select
+        class="form__input form__input--select"
+        [class.form__input--empty]="isFieldEmpty('state')"
+        id="state"
+        formControlName="state"
+      >
+        <option class="form__option" value="IN_PROGRESS" selected>En progreso</option>
+        <option class="form__option" value="RESOLVED">Resuelta</option>
+      </select>
+      <label class="form__label" for="state">Estado</label>
+      @if (hasErrors('state', 'required')) {
+        <span class="form__error">El estado es obligatorio</span>
+      } @else if (hasErrors('state', 'maxlength')) {
+        <span class="form__error">Has superado el límite de caracteres</span>
+      }
+    </div>
+
+    @if (this.resolutionForm.get('state')?.value === 'RESOLVED') {
+      <div class="form__field" [class.form__field--error]="hasAnyError('resolution')">
+        <textarea
+          class="form__input form__input--text form__input--textarea"
+          id="resolution"
+          rows="5"
+          formControlName="resolution"
+          maxlength="2000"
+          placeholder=" "
+        ></textarea>
+        <label class="form__label" for="resolution">Resolución</label>
+        @if (hasErrors('resolution', 'required')) {
+          <span class="form__error">La resolución es obligatoria</span>
+        } @else if (hasErrors('resolution', 'maxlength')) {
+          <span class="form__error">Has superado el límite de caracteres</span>
+        }
+      </div>
+
+      <div class="form__field">
+        <input
+          class="form__input--hidden"
+          #fileInput
+          id="images"
+          type="file"
+          multiple
+          accept="image/png, image/jpeg, image/jpg"
+          hidden
+          (change)="onFileChange($event)"
+        />
+        <label
+          class="form__label--file-button"
+          [class.form__label--error]="hasAnyError('images')"
+          for="images"
+          >Subir imágenes relacionadas con el problema</label
+        >
+        @if (selectedImages$ | async; as images) {
+          @if (images.length > 0) {
+            <div class="carousel" id="form__carousel">
+              @for (img of images; track img.url) {
+                <div class="carousel__preview-item" #carouselItem>
+                  <a
+                    class="carousel__link"
+                    [href]="img.url"
+                    [attr.data-pswp-width]="img.width"
+                    [attr.data-pswp-height]="img.height"
+                    target="_blank"
+                  >
+                    <img class="carousel__preview-image" [src]="img.url" alt="Vista previa" />
+                  </a>
+                  <svg
+                    class="carousel__preview-remove"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    (click)="$event.stopPropagation(); removeFile($index)"
+                  >
+                    <path
+                      d="M13.93,12L21.666,2.443c.521-.644,.422-1.588-.223-2.109-.645-.522-1.588-.421-2.109,.223l-7.334,9.06L4.666,.557c-1.241-1.519-3.56,.357-2.332,1.887l7.736,9.557L2.334,21.557c-.521,.644-.422,1.588,.223,2.109,.64,.519,1.586,.424,2.109-.223l7.334-9.06,7.334,9.06c.524,.647,1.47,.742,2.109,.223,.645-.521,.744-1.466,.223-2.109l-7.736-9.557Z"
+                    />
+                  </svg>
+                </div>
+              }
+            </div>
+          }
+        }
+
+        @if (hasErrors('images', 'maxlength')) {
+          <span class="form__error">Solamente se pueden proporcionar 3 imágenes relacionadas</span>
+        }
+      </div>
+    }
+
+    <button class="form__submit" type="submit">
+      @if (this.resolutionForm.get('state')?.value === 'RESOLVED') {
+        Resolver la incidencia
+      } @else {
+        Actualizar estado
+      }
+    </button>
+  </form>
+</div>

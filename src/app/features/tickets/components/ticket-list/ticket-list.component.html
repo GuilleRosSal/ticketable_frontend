@@ -32,7 +32,7 @@
       @for (ticket of tickets$ | async; track ticket.ticket_id) {
         <app-ticket class="ticket-list__ticket" [ticket]="ticket"></app-ticket>
       } @empty {
-        <p class="ticket-list__empty">No se han encontrado incidencias</p>
+        <p class="ticket-list__list--empty">No se han encontrado incidencias</p>
       }
     </div>
 

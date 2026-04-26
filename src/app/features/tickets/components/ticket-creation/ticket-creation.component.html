@@ -105,7 +105,7 @@
         @if (images.length > 0) {
           <div class="carousel" id="form__carousel">
             @for (img of images; track img.url) {
-              <div class="carousel__preview-item">
+              <div class="carousel__preview-item" #carouselItem>
                 <a
                   class="carousel__link"
                   [href]="img.url"

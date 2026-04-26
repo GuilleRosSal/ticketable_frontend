@@ -1,19 +1,22 @@
 import { AsyncPipe } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   DestroyRef,
   ElementRef,
   inject,
   OnDestroy,
   OnInit,
+  QueryList,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
-import { BehaviorSubject, forkJoin, map, Observable, take } from 'rxjs';
+import { BehaviorSubject, forkJoin, map, Observable } from 'rxjs';
 import { showToast } from '../../../../core/toasts/store/actions/toast.actions';
 import { FormUtils } from '../../../../shared/utils/form.utils';
 import { getImageDimensions$, ImgFile } from '../../../../shared/utils/image.utils';
@@ -27,7 +30,7 @@ import { TicketService } from '../../services/ticket.service';
   templateUrl: './ticket-creation.component.html',
   styleUrl: './ticket-creation.component.scss',
 })
-export class TicketCreationComponent implements OnInit, OnDestroy {
+export class TicketCreationComponent implements OnInit, AfterViewInit, OnDestroy {
   private store = inject(Store);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
@@ -39,6 +42,7 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
   private selectedImagesSubject = new BehaviorSubject<ImgFile[]>([]);
   selectedImages$ = this.selectedImagesSubject.asObservable();
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChildren('carouselItem') carouselItem!: QueryList<any>;
 
   categories$: Observable<string[]> = this.categoryService
     .getCategories()
@@ -59,17 +63,16 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    this.lightbox = new PhotoSwipeLightbox({
-      gallery: '#form__carousel',
-      children: '.carousel__preview-item',
-      pswpModule: () => import('photoswipe'),
-    });
-    this.lightbox.init();
-
     this.openTicketForm
       .get('category')
       ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((category) => this.updateSubcategoryValues(category));
+  }
+
+  ngAfterViewInit(): void {
+    this.carouselItem.changes
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.initLightbox());
   }
 
   ngOnDestroy(): void {
@@ -113,15 +116,23 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
   }
 
   private openTicket(ticketData: TicketCreationData) {
-    this.ticketService
-      .openTicket(ticketData)
-      .pipe(take(1))
-      .subscribe({
-        next: () => {
-          this.router.navigateByUrl('/ticket');
-        },
-        error: (error) => this.showErrorMessage(error.error.error),
-      });
+    this.ticketService.openTicket(ticketData).subscribe({
+      next: () => this.router.navigateByUrl('/ticket'),
+      error: (error) => this.showErrorMessage(error.error.error),
+    });
+  }
+
+  initLightbox() {
+    if (this.lightbox) {
+      this.lightbox.destroy();
+    }
+
+    this.lightbox = new PhotoSwipeLightbox({
+      gallery: '#form__carousel',
+      children: '.carousel__preview-item',
+      pswpModule: () => import('photoswipe'),
+    });
+    this.lightbox.init();
   }
 
   onFileChange(event: Event) {
@@ -133,11 +144,11 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
 
       const imageRequests$ = filesArray.map((file) =>
         getImageDimensions$(file).pipe(
-          map((dims) => ({
+          map((dimensions) => ({
             file,
             url: URL.createObjectURL(file),
-            width: dims.width,
-            height: dims.height,
+            width: dimensions.width,
+            height: dimensions.height,
           })),
         ),
       );
@@ -153,11 +164,6 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
         if (this.fileInput) {
           this.fileInput.nativeElement.value = '';
         }
-
-        setTimeout(() => {
-          this.lightbox?.destroy();
-          this.lightbox?.init();
-        }, 100);
       });
     }
   }
@@ -174,11 +180,6 @@ export class TicketCreationComponent implements OnInit, OnDestroy {
     const control = this.openTicketForm.get('images');
     control?.setValue(updatedImages.map((img) => img.file));
     control?.updateValueAndValidity();
-
-    setTimeout(() => {
-      this.lightbox?.destroy();
-      this.lightbox?.init();
-    }, 100);
   }
 
   showErrorMessage(message: string) {

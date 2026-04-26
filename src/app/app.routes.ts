@@ -16,14 +16,3 @@ export const routes: Routes = [
   { path: '', redirectTo: 'ticket', pathMatch: 'full' },
   { path: '**', redirectTo: 'ticket' },
 ];
-
-/*
-Guards Use
-
-authGuard:
-  canActivate: [authGuard],
-
-roleGuard:
-  canActivate: [roleGuard],
-  data: { roles: ['ADMIN'] },
-*/
