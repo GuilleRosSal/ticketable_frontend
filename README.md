@@ -2,6 +2,15 @@
 
 Este documento contiene las instrucciones necesarias para configurar y ejecutar la interfaz de usuario del sistema desarrollada con **Angular**.
 
+## 🌐 Versión Online
+
+La aplicación se encuentra desplegada y disponible para su uso en producción en la siguiente dirección: [https://ticketable.netlify.app](https://ticketable.netlify.app)
+
+> [!IMPORTANT]
+> **Nota sobre el primer acceso:** Debido a que el backend utiliza el plan gratuito de Render, el servidor puede entrar en reposo tras periodos de inactividad. La primera petición (Login) puede demorar entre 30 y 60 segundos mientras la instancia se reactiva. Una vez iniciada, el rendimiento es óptimo.
+
+---
+
 ## 1. Requisitos Previos
 
 Antes de comenzar, asegúrate de tener instalado:
@@ -25,11 +34,12 @@ El cliente web requiere la instalación de sus dependencias y la verificación d
 2. **Configuración de la URL de la API:**
    El proyecto viene preconfigurado para conectar con la API en la dirección por defecto del backend (`http://localhost:3000`).
 
-   Si tu servidor backend está ejecutándose en un puerto o dirección diferente, debes modificar la propiedad `apiUrl` en el siguiente archivo:
-   - `src/environments/environment.development.ts`
+   Si tu servidor backend está ejecutándose en un puerto o dirección diferente, debes modificar la propiedad `backendUrl` en uno de los siguientes archivos:
+   - **Desarrollo:** `src/environments/environment.development.ts`
+   - **Producción:** `src/environments/environment.ts`
 
 > [!NOTE]
-> Al estar este archivo incluido en el repositorio, la aplicación funcionará directamente siempre que el backend utilice el puerto `3000`.
+> Al estar ambos archivos incluidos en el repositorio, la aplicación funcionará directamente. En caso del modo desarrollo se utiliza el puerto `3000` para el backend local.
 
 ---
 
@@ -74,4 +84,4 @@ En caso de querer generar la build del proyecto, ejecuta el comando:
 npm run build
 ```
 
-Los archivos resultantes se generarán en la carpeta `dist/ticketable-frontend`.
+Los archivos resultantes se generarán en la carpeta `dist/ticketable-frontend/browser`.
