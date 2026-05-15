@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 import { showToast } from '../../../toasts/store/actions/toast.actions';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
@@ -85,7 +86,12 @@ export class AuthEffects {
   authError$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loginError, registerError, updatePasswordError, updateProfileDataError),
-      map(({ error }) => showToast({ message: error.error.error, toastType: 'error' })),
+      map(({ error }) =>
+        showToast({
+          message: error.error.error || environment.defaultErrorMsg,
+          toastType: 'error',
+        }),
+      ),
     ),
   );
 

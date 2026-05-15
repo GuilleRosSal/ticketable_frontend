@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  backendUrl: 'http://url-to-production-backend',
+  backendUrl: 'https://ticketable-backend.onrender.com',
+  defaultErrorMsg: 'No se ha podido conectar con el servidor',
 };

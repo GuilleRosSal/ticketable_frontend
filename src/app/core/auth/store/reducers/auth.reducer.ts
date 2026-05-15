@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { environment } from '../../../../../environments/environment';
 import { AppError } from '../../../models/error.model';
 import { User } from '../../models/user.model';
 import {
@@ -55,7 +56,7 @@ const _authReducer = createReducer(
       loading: false,
       error: {
         code: error.status,
-        message: error.error.error,
+        message: error.error.error || environment.defaultErrorMsg,
         url: error.url,
       },
     }),

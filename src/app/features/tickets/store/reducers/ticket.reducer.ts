@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { environment } from '../../../../../environments/environment';
 import { AppError } from '../../../../core/models/error.model';
 import {
   FilteredTicket,
@@ -54,7 +55,7 @@ const _ticketReducer = createReducer(
     loading: false,
     error: {
       code: error.status,
-      message: error.error.error,
+      message: error.error.error || environment.defaultErrorMsg,
       url: error.url,
     },
   })),

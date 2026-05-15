@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 import { UserRole } from '../../../../core/auth/models/user.model';
 import { selectUser } from '../../../../core/auth/store/selectors/auth.selector';
 import { showToast } from '../../../../core/toasts/store/actions/toast.actions';
@@ -107,7 +108,12 @@ export class TicketEffects {
   ticketError$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadTicketsError, openTicketError),
-      map(({ error }) => showToast({ message: error.error.error, toastType: 'error' })),
+      map(({ error }) =>
+        showToast({
+          message: error.error.error || environment.defaultErrorMsg,
+          toastType: 'error',
+        }),
+      ),
     ),
   );
 }
