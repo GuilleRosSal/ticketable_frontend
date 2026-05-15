@@ -39,17 +39,28 @@ Una vez instaladas las dependencias, dispones de varios comandos para ejecutar o
 
 ### Ejecución en modo desarrollo
 
-Para arrancar el servidor de desarrollo y que la aplicación se abra automáticamente en tu navegador predefinido, ejecuta:
+Para arrancar el servidor de desarrollo apuntando al backend local (`localhost:3000`):
+
+```bash
+npm start
+```
+
+O si quieres que se abra automáticamente una pestaña en el navegador:
 
 ```bash
 ng serve --open
 ```
 
-O en su defecto:
+### Ejecución con Backend en Producción
+
+Si deseas ejecutar el frontend en tu máquina local pero conectando con la **API desplegada en Render**, utiliza el perfil de producción:
 
 ```bash
-npm start
+ng serve --configuration=production
 ```
+
+> [!IMPORTANT]
+> Al usar esta configuración, la aplicación ignorará el backend local y realizará las peticiones a la URL de Render configurada en `environment.ts`. En este caso ten en cuenta que el servidor del backend puede tardar cierto tiempo en arrancarse, por lo que la primera petición tendrá una mayor latencia.
 
 La aplicación estará disponible en `http://localhost:4200`. El servidor detectará cualquier cambio en el código y refrescará la página automáticamente.
 
